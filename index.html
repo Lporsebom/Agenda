@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🌸 Beauty by Carol · Agenda</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+</head>
+<body>
+    <!-- ====== FUNDO COM FOTO PERSONALIZADA ====== -->
+    <div class="background-foto" style="background-image: url('sua-foto.jpg.png');">
+        <div class="overlay-suave"></div>
+    </div>
+
+    <!-- ====== CONTEÚDO PRINCIPAL ====== -->
+    <div class="app-container">
+        
+        <!-- ====== HEADER ====== -->
+        <header class="header-app">
+            <div class="header-top">
+                <div class="logo-mini">
+                    <span class="icone-flor">🌸</span>
+                    <span class="nome-studio">Beauty by Carol</span>
+                </div>
+                <div class="header-acoes">
+                    <button class="btn-header" onclick="window.location.href='admin.html'">
+                        <i class="fas fa-user-circle"></i>
+                    </button>
+                </div>
+            </div>
+            <p class="header-mensagem">✨ Seu momento de beleza começa aqui</p>
+        </header>
+
+        <!-- ====== NAVEGAÇÃO POR TABS ====== -->
+        <div class="tabs-container">
+            <button class="tab-btn active" data-tab="agenda" onclick="trocarTab('agenda')">
+                <i class="fas fa-calendar-check"></i>
+                <span>Agenda</span>
+            </button>
+            <button class="tab-btn" data-tab="depoimentos" onclick="trocarTab('depoimentos')">
+                <i class="fas fa-heart"></i>
+                <span>Depoimentos</span>
+            </button>
+            <button class="tab-btn" data-tab="info" onclick="trocarTab('info')">
+                <i class="fas fa-info-circle"></i>
+                <span>Info</span>
+            </button>
+        </div>
+
+        <!-- ====== TAB 1: AGENDA ====== -->
+        <div class="tab-content active" id="tab-agenda">
+            <!-- Seleção de Serviços (Múltipla) -->
+            <div class="card-mobile">
+                <div class="card-header-mobile">
+                    <i class="fas fa-spa"></i>
+                    <span>Escolha seus tratamentos</span>
+                    
+                </div>
+                <div class="servicos-multiplos">
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Manicure" class="servico-check">
+                        <span>💅 Manicure · R$ 30,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Pedicure" class="servico-check">
+                        <span>🦶 Pedicure · R$ 38,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Tratamento dos pés" class="servico-check">
+                        <span>👣 Spa dos pés · R$ 35,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Design de Sobrancelhas" class="servico-check">
+                        <span>✨ Design de Sobrancelhas · R$ 30,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Epilação de buço" class="servico-check">
+                        <span>🧼 Epilação de buço · R$ 15,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Pedicure + Plástica dos Pés" class="servico-check">
+                        <span>💆 Pedicure + Plástica dos Pés · R$ 60,00</span>
+                    </label>
+                    <label class="servico-checkbox">
+                        <input type="checkbox" value="Brown Lamination" class="servico-check">
+                        <span>✏️ Brown Lamination · R$ 100,00</span>
+                    </label>
+                </div>
+                
+            </div>
+
+            <!-- Calendário -->
+            <div class="card-mobile card-calendario-mobile">
+                <div class="card-header-mobile">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Selecione a data</span>
+                </div>
+                <div id="calendar"></div>
+            </div>
+
+            <!-- Horários disponíveis -->
+            <div id="horariosDisponiveis" style="display:none;">
+                <div class="card-mobile">
+                    <div class="card-header-mobile">
+                        <i class="far fa-clock"></i>
+                        <span>Horários para <span id="dataSelecionada" class="data-destaque"></span></span>
+                    </div>
+                    <div id="listaHorarios" class="horarios-grid-mobile"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== TAB 2: DEPOIMENTOS ====== -->
+        <div class="tab-content" id="tab-depoimentos">
+            <div class="card-mobile">
+                <div class="card-header-mobile">
+                    <i class="fas fa-heart"></i>
+                    <span>O que minhas clientes dizem</span>
+                </div>
+                
+                <div id="listaComentarios" class="depoimentos-lista-mobile"></div>
+
+                <button class="btn-depoimento-mobile" onclick="abrirFormDepoimento()">
+                    <i class="far fa-pen-to-square"></i> Compartilhe sua experiência
+                </button>
+
+                <div id="formDepoimento" style="display:none;">
+                    <div class="form-depoimento-mobile">
+                        <h4>✨ Conte como foi</h4>
+                        <form id="formComentario">
+                            <div class="campo-mobile">
+                                <input type="text" id="nomeComentario" placeholder="Seu nome" required>
+                            </div>
+                            <div class="campo-mobile">
+                                <textarea id="textoComentario" placeholder="Como foi sua experiência?" rows="3" required></textarea>
+                            </div>
+                            <div class="estrelas-mobile">
+                                <span>Avaliação:</span>
+                                <div class="estrelas" id="estrelas">
+                                    <i class="fas fa-star" data-nota="1"></i>
+                                    <i class="fas fa-star" data-nota="2"></i>
+                                    <i class="fas fa-star" data-nota="3"></i>
+                                    <i class="fas fa-star" data-nota="4"></i>
+                                    <i class="fas fa-star" data-nota="5"></i>
+                                </div>
+                            </div>
+                            <div class="form-botoes-mobile">
+                                <button type="button" class="btn-mobile btn-cancelar" onclick="fecharFormDepoimento()">Cancelar</button>
+                                <button type="submit" class="btn-mobile btn-rosado">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== TAB 3: INFO ====== -->
+<div class="tab-content" id="tab-info">
+    <div class="card-mobile">
+        <div class="card-header-mobile">
+            <i class="fas fa-store"></i>
+            <span>Sobre o studio</span>
+        </div>
+        
+        <div class="info-content-mobile">
+            <div class="info-item">
+                <i class="fas fa-map-pin"></i>
+                <div>
+                    <strong>Endereço</strong>
+                    <p>Rua Orlando Mingati, 632 · Jardim das Oliveiras</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <i class="far fa-clock"></i>
+                <div>
+                    <strong>Horário de funcionamento</strong>
+                    <p>Segunda a Sexta · 19h às 21:30h · Sábado · 8h às 17h</p>
+                </div>
+            </div>
+                      
+            <div class="info-item">
+                <i class="fas fa-whatsapp"></i>
+                <div>
+                    <strong>WhatsApp</strong>
+                    <p>(19) 98931-4967</p>
+                </div>
+            </div>
+            
+            <!-- ====== NOVA SEÇÃO: COMO CHEGAR ====== -->
+            <div class="info-divider">
+                <span>📍 Como chegar</span>
+            </div>
+            
+            <!-- Botões de navegação -->
+            <div class="botoes-mapa">
+                <a href="https://maps.app.goo.gl/pdFdocmziEkUBNLe9" target="_blank" class="btn-mapa btn-google">
+                    <i class="fab fa-google"></i> Google Maps
+                </a>
+                <a href="https://waze.com/ul?ll=LATITUDE,LONGITUDE&navigate=yes" target="_blank" class="btn-mapa btn-waze">
+                    <i class="fab fa-waze"></i> Waze
+                </a>
+            </div>
+            
+            <!-- Mapa incorporado -->
+            <div class="mapa-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14725.789012345678!2d-47.6476!3d-22.7241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQzJzI2LjgiUyA0N8KwMzgnNTEuNCJX!5e0!3m2!1spt-BR!2sbr!4v1234567890" 
+                    width="100%" 
+                    height="200" 
+                    style="border:0; border-radius: 14px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <div class="info-politica">
+                <p>🌸 Cancelamentos com até 24h de antecedência</p>
+                <p>💕 Chegue com 10 minutos de antecedência</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer-mobile">
+            <p>🌸 Beauty by Carol · Feito com carinho para você</p>
+        </footer>
+    </div>
+
+    <!-- ====== MODAL DE AGENDAMENTO ====== -->
+    <div class="modal-mobile" id="modalAgendamento">
+        <div class="modal-content-mobile">
+            <button class="btn-close-modal-mobile"><i class="fas fa-times"></i></button>
+            
+            <div class="modal-header-mobile">
+                <span class="modal-emoji">💗</span>
+                <h3>Confirmar agendamento</h3>
+                <p class="modal-sub-mobile">Preencha os dados abaixo</p>
+            </div>
+            
+            <div id="detalhesAgendamento" class="detalhes-agendamento-mobile"></div>
+            
+            <div class="modal-form-mobile">
+                <div class="campo-mobile">
+                    <label>Seu nome <span class="obrigatorio">*</span></label>
+                    <input type="text" id="nomeCliente" placeholder="Ex: Ana Silva" required>
+                </div>
+                
+                <div class="campo-mobile">
+                    <label>WhatsApp <span class="obrigatorio">*</span></label>
+                    <input type="tel" id="telefoneCliente" placeholder="(19) 99999-9999" required>
+                </div>
+                
+                <div class="campo-mobile">
+                    <label>Observações <span class="opcional">(opcional)</span></label>
+                    <textarea id="observacaoCliente" placeholder="Alguma preferência?" rows="2"></textarea>
+                </div>
+                
+                <div class="checkbox-mobile">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="confirmarWhatsApp" checked>
+                        <span><i class="fab fa-whatsapp"></i> Confirmação no WhatsApp</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="confirmarGoogleCalendar" checked>
+                        <span><i class="far fa-calendar-plus"></i> Google Calendar</span>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn-mobile btn-rosado btn-confirmar-mobile" id="confirmarAgendamento">
+                <i class="fas fa-check-circle"></i> Confirmar
+            </button>
+        </div>
+    </div>
+
+    <script src="calendar.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

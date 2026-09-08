@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🌸 Belle Nails · Painel Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========== ADMIN ESPECÍFICO ========== */
+        .admin-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 0 5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .admin-header {
+            padding: 1rem 1.2rem 1.5rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, transparent 100%);
+        }
+
+        .admin-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.2rem;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-logo .icone-flor {
+            font-size: 1.6rem;
+            animation: flutuar 4s ease-in-out infinite;
+        }
+
+        .admin-logo .nome-studio {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #d4a09b, #b5837a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-badge {
+            background: rgba(196, 154, 148, 0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #b5837a;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .admin-header-mensagem {
+            font-size: 0.85rem;
+            color: #a07a74;
+            font-weight: 300;
+            margin-top: 0.2rem;
+            padding-left: 0.2rem;
+        }
+
+        .btn-voltar-mobile {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #7a5a56;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 2px 12px rgba(181, 131, 122, 0.08);
+        }
+
+        .btn-voltar-mobile:active {
+            transform: scale(0.95);
+        }
+
+        /* ========== CARDS ADMIN ========== */
+        .card-admin {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 1.2rem 1.2rem 1.4rem;
+            margin: 0 0.8rem 1rem;
+            box-shadow: 0 4px 20px rgba(181, 131, 122, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .card-header-admin {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #7a5a56;
+            margin-bottom: 1rem;
+        }
+
+        .card-header-admin i {
+            color: #c49a94;
+            font-size: 1rem;
+        }
+
+        /* ========== TELA DE LOGIN ========== */
+        .login-container {
+            display: none;
+            min-height: 60vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container.active {
+            display: flex;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 8px 40px rgba(181, 131, 122, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .login-box .login-icone {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-box h2 {
+            font-family: 'Playfair Display', serif;
+            color: #4a2c2a;
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .login-box p {
+            color: #9a7a76;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-box .campo-senha {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .login-box .campo-senha input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            padding-right: 3rem;
+            border: 2px solid #f0e4df;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            color: #3d2a28;
+            transition: 0.3s;
+        }
+
+        .login-box .campo-senha input:focus {
+            outline: none;
+            border-color: #c49a94;
+        }
+
+        .login-box .campo-senha .toggle-senha {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #b5a09a;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.2rem;
+        }
+
+        .login-box .campo-senha .toggle-senha:active {
+            color: #7a5a56;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #d4a09b, #c08a84);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 16px rgba(192, 138, 132, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-login:active {
+            transform: scale(0.95);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-box .erro-senha {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .login-box .erro-senha.active {
+            display: block;
+        }
+
+        .login-box .login-opcoes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 0.8rem;
+        }
+
+        .login-box .login-opcoes label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #7a5a56;
+            cursor: pointer;
+        }
+
+        .login-box .login-opcoes label input[type="checkbox"] {
+            accent-color: #c49a94;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .login-box .esqueci-senha {
+            color: #b5837a;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-box .esqueci-senha:active {
+            opacity: 0.7;
+        }
+
+        /* ========== CONTEÚDO ADMIN (oculto inicialmente) ========== */
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        /* ========== STATS ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .stat-card-admin {
+            background: rgba(248, 238, 234, 0.5);
+            border-radius: 14px;
+            padding: 0.8rem 0.4rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .stat-card-admin .numero {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #4a2c2a;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-card-admin .label {
+            font-size: 0.6rem;
+            color: #9a7a76;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== AÇÕES ========== */
+        .acoes-admin {
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-admin {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn-admin:active {
+            transform: scale(0.95);
+        }
+
+        .btn-exportar {
+            background: rgba(52, 152, 219, 0.12);
+            color: #2980b9;
+        }
+
+        .btn-exportar:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .btn-limpar {
+            background: rgba(231, 76, 60, 0.10);
+            color: #c0392b;
+        }
+
+        .btn-limpar:hover {
+            background: rgba(231, 76, 60, 0.2);
+        }
+
+        .btn-atualizar {
+            background: rgba(196, 154, 148, 0.12);
+            color: #b5837a;
+        }
+
+        .btn-atualizar:hover {
+            background: rgba(196, 154, 148, 0.2);
+        }
+
+        .btn-sair {
+            background: rgba(196, 154, 148, 0.08);
+            color: #9a7a76;
+        }
+
+        .btn-sair:hover {
+            background: rgba(196, 154, 148, 0.15);
+        }
+
+        /* ========== LISTA DE AGENDAMENTOS ========== */
+        .agendamento-item-admin {
+            background: rgba(248, 238, 234, 0.4);
+            border-radius: 14px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.6rem;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.2s;
+        }
+
+        .agendamento-item-admin:active {
+            transform: scale(0.98);
+        }
+
+        .agendamento-info-admin {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .agendamento-info-admin .cliente-nome {
+            font-weight: 600;
+            color: #4a2c2a;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .agendamento-info-admin .cliente-nome .servico-tag {
+            font-size: 0.6rem;
+            font-weight: 500;
+            color: white;
+            background: linear-gradient(135deg, #d4a09b, #c08a84);
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+        }
+
+        .agendamento-info-admin .cliente-nome .valor-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #2e7d32;
+        }
+
+        .agendamento-info-admin .detalhes-data {
+            font-size: 0.8rem;
+            color: #7a5a56;
+            margin-top: 0.1rem;
+        }
+
+        .agendamento-info-admin .observacao-texto {
+            font-size: 0.75rem;
+            color: #9a7a76;
+            font-style: italic;
+            margin-top: 0.1rem;
+        }
+
+        .agendamento-info-admin .data-agendamento {
+            font-size: 0.65rem;
+            color: #b5a09a;
+            margin-top: 0.1rem;
+        }
+
+        .agendamento-info-admin .whatsapp-link-admin {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.7rem;
+            color: #25d366;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        .agendamento-info-admin .whatsapp-link-admin:active {
+            opacity: 0.7;
+        }
+
+        .btn-remover-admin {
+            background: rgba(231, 76, 60, 0.10);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: #e74c3c;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remover-admin:active {
+            transform: scale(0.85);
+            background: rgba(231, 76, 60, 0.2);
+        }
+
+        /* ========== VAZIO ========== */
+        .vazio-admin {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #9a7a76;
+        }
+
+        .vazio-admin .vazio-icone {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .vazio-admin .vazio-texto {
+            font-size: 0.95rem;
+        }
+
+        .vazio-admin .vazio-sub {
+            font-size: 0.8rem;
+            color: #b5a09a;
+            margin-top: 0.2rem;
+        }
+
+        /* ========== FOOTER ADMIN ========== */
+        .footer-admin {
+            text-align: center;
+            padding: 1.5rem 0.8rem 0.5rem;
+            font-size: 0.7rem;
+            color: #a07a74;
+            font-weight: 300;
+            letter-spacing: 0.3px;
+        }
+
+        /* ========== RESPONSIVO ========== */
+        @media (max-width: 400px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .agendamento-item-admin {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn-remover-admin {
+                width: 100%;
+                border-radius: 12px;
+                padding: 0.5rem;
+                height: auto;
+            }
+            
+            .acoes-admin {
+                flex-direction: column;
+            }
+            
+            .btn-admin {
+                flex: none;
+                width: 100%;
+            }
+
+            .login-box {
+                padding: 1.5rem 1rem;
+                margin: 0 0.8rem;
+            }
+        }
+
+        /* ========== ANIMAÇÃO ========== */
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-box {
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* ========== BACKGROUND ========== */
+        .background-foto-admin {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            background-image: url('sua-foto.jpg');
+        }
+
+        .overlay-suave-admin {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(253, 246, 243, 0.92) 0%, 
+                rgba(253, 246, 243, 0.88) 40%,
+                rgba(248, 238, 234, 0.92) 100%
+            );
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body>
+    <!-- ====== FUNDO COM FOTO PERSONALIZADA ====== -->
+    <div class="background-foto-admin">
+        <div class="overlay-suave-admin"></div>
+    </div>
+
+    <!-- ====== CONTEÚDO ADMIN ====== -->
+    <div class="admin-container">
+        
+        <!-- ====== HEADER ====== -->
+        <header class="admin-header">
+            <div class="admin-header-top">
+                <div class="admin-logo">
+                    <span class="icone-flor">🌸</span>
+                    <span class="nome-studio">Beauty by Carol</span>
+                </div>
+                <span class="admin-badge">🔐 Admin</span>
+            </div>
+            <p class="admin-header-mensagem">✨ Gerencie todos os agendamentos com carinho</p>
+        </header>
+
+        <!-- ====== TELA DE LOGIN ====== -->
+        <div class="login-container active" id="loginContainer">
+            <div class="login-box">
+                <span class="login-icone">🔐</span>
+                <h2>Acesso Administrativo</h2>
+                <p>Digite sua senha para gerenciar os agendamentos</p>
+                
+                <div class="campo-senha">
+                    <input type="password" id="senhaInput" placeholder="Digite sua senha" autocomplete="current-password">
+                    <button class="toggle-senha" id="toggleSenha" type="button" aria-label="Mostrar senha">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                
+                <div class="erro-senha" id="erroSenha">
+                    <i class="fas fa-exclamation-circle"></i> Senha incorreta. Tente novamente.
+                </div>
+                
+                <div class="login-opcoes">
+                    <label>
+                        <input type="checkbox" id="lembrarAcesso"> Lembrar acesso
+                    </label>
+                    <a href="#" class="esqueci-senha" onclick="mostrarDicaSenha()">Esqueceu a senha?</a>
+                </div>
+                
+                <button class="btn-login" id="btnLogin">
+                    <i class="fas fa-unlock"></i> Entrar
+                </button>
+            </div>
+        </div>
+
+        <!-- ====== CONTEÚDO ADMIN (oculto até login) ====== -->
+        <div class="admin-content" id="adminContent">
+            <div class="card-admin">
+                <div class="card-header-admin">
+                    <i class="fas fa-chart-simple"></i>
+                    <span>Resumo do studio</span>
+                    <button class="btn-admin btn-sair" onclick="sairAdmin()" style="margin-left: auto; flex: none; padding: 0.3rem 0.8rem; font-size: 0.7rem;">
+                        <i class="fas fa-sign-out-alt"></i> Sair
+                    </button>
+                </div>
+                
+                <!-- Stats -->
+                <div class="stats-grid" id="stats"></div>
+
+                <!-- Ações -->
+                <div class="acoes-admin">
+                    <button class="btn-admin btn-atualizar" onclick="carregarAdmin()">
+                        <i class="fas fa-sync"></i> Atualizar
+                    </button>
+                    <button class="btn-admin btn-exportar" onclick="exportarAgendamentos()">
+                        <i class="fas fa-file-export"></i> Exportar CSV
+                    </button>
+                    <button class="btn-admin btn-limpar" onclick="limparTodosAgendamentos()">
+                        <i class="fas fa-trash"></i> Limpar
+                    </button>
+                </div>
+
+                <!-- Lista -->
+                <div id="listaAgendamentos"></div>
+
+                <!-- Botão voltar -->
+                <div style="margin-top: 1rem; text-align: center;">
+                    <a href="index.html" class="btn-voltar-mobile">
+                        <i class="fas fa-arrow-left"></i> Voltar para agenda
+                    </a>
+                </div>
+            </div>
+
+            <!-- ====== FOOTER ====== -->
+            <footer class="footer-admin">
+                <p>🌸 Beauty by Carol · Feito com carinho para você</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURAÇÃO DA SENHA ==========
+        // ⚠️ ALTERE ESTA SENHA PARA A QUE VOCÊ QUISER
+        const SENHA_ADMIN = 'amomeunoivo';
+        
+        // Função simples para escapar texto vindo do usuário (evita XSS)
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/\"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+        
+        // ========== VERIFICAR ACESSO ==========
+        function verificarAcesso() {
+            const acessoLembrado = localStorage.getItem('adminAcesso');
+            if (acessoLembrado === 'true') {
+                // Acesso já foi lembrado, faz login automático
+                entrarAdmin();
+            }
+        }
+
+        // ========== ENTRAR NO ADMIN ==========
+        function entrarAdmin() {
+            document.getElementById('loginContainer').classList.remove('active');
+            document.getElementById('adminContent').classList.add('active');
+            carregarAdmin();
+        }
+
+        // ========== SAIR DO ADMIN ==========
+        function sairAdmin() {
+            if (confirm('Deseja realmente sair do painel administrativo?')) {
+                localStorage.removeItem('adminAcesso');
+                document.getElementById('adminContent').classList.remove('active');
+                document.getElementById('loginContainer').classList.add('active');
+                document.getElementById('senhaInput').value = '';
+                document.getElementById('erroSenha').classList.remove('active');
+                document.getElementById('senhaInput').focus();
+            }
+        }
+
+        // ========== MOSTRAR DICA DA SENHA ==========
+        function mostrarDicaSenha() {
+            alert('💭 Dica: A senha padrão é "Leandro"\n\nVocê pode alterar a senha no código do admin.html, na variável SENHA_ADMIN.');
+        }
+
+        // ========== EVENTO DE LOGIN ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            const senhaInput = document.getElementById('senhaInput');
+            const btnLogin = document.getElementById('btnLogin');
+            const erroSenha = document.getElementById('erroSenha');
+            const toggleSenha = document.getElementById('toggleSenha');
+            const lembrarAcesso = document.getElementById('lembrarAcesso');
+
+            // Verifica se já tem acesso lembrado
+            verificarAcesso();
+
+            // Função de login
+            function fazerLogin() {
+                const senha = senhaInput.value.trim();
+                
+                if (senha === SENHA_ADMIN) {
+                    // Senha correta
+                    erroSenha.classList.remove('active');
+                    
+                    // Salva acesso se "Lembrar" estiver marcado
+                    if (lembrarAcesso.checked) {
+                        localStorage.setItem('adminAcesso', 'true');
+                    } else {
+                        localStorage.removeItem('adminAcesso');
+                    }
+                    
+                    entrarAdmin();
+                } else {
+                    // Senha incorreta
+                    erroSenha.classList.add('active');
+                    senhaInput.value = '';
+                    senhaInput.focus();
+                    senhaInput.style.borderColor = '#e74c3c';
+                    setTimeout(() => {
+                        senhaInput.style.borderColor = '';
+                    }, 2000);
+                }
+            }
+
+            // Evento de clique no botão
+            btnLogin.addEventListener('click', fazerLogin);
+
+            // Evento de tecla Enter no campo de senha
+            senhaInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    fazerLogin();
+                }
+            });
+
+            // Toggle mostrar/ocultar senha
+            toggleSenha.addEventListener('click', function() {
+                const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                senhaInput.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+
+            // Foco no campo de senha ao carregar
+            if (!localStorage.getItem('adminAcesso')) {
+                senhaInput.focus();
+            }
+        });
+
+        // ========== CARREGAR ADMIN ==========
+        function carregarAdmin() {
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            const lista = document.getElementById('listaAgendamentos');
+            const stats = document.getElementById('stats');
+
+            // ===== ESTATÍSTICAS =====
+            const total = agendamentos.length;
+            const porServico = {};
+            const porDia = {};
+            
+            agendamentos.forEach(a => {
+                porServico[a.servico] = (porServico[a.servico] || 0) + 1;
+                const dataObj = new Date(a.data + 'T00:00:00');
+                const diaSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'][dataObj.getDay()];
+                porDia[diaSemana] = (porDia[diaSemana] || 0) + 1;
+            });
+
+            // Pega os 3 serviços mais agendados
+            const servicosOrdenados = Object.entries(porServico).sort((a, b) => b[1] - a[1]);
+            const topServicos = servicosOrdenados.slice(0, 3);
+
+            let statsHTML = `
+                <div class="stat-card-admin">
+                    <div class="numero">${total}</div>
+                    <div class="label">Total</div>
+                </div>
+            `;
+
+            topServicos.forEach(([servico, qtd]) => {
+                const icones = {
+                    'Manicure': '💅',
+                    'Pedicure': '🦶',
+                    'Tratamento dos pés': '👣',
+                    'Brown Lamination': '✏️'
+                };
+                statsHTML += `
+                    <div class="stat-card-admin">
+                        <div class="numero">${qtd}</div>
+                        <div class="label">${icones[servico] || ''} ${servico}</div>
+                    </div>
+                `;
+            });
+
+            // Se não tiver agendamentos, mostra só o total
+            if (total === 0) {
+                statsHTML = `
+                    <div class="stat-card-admin" style="grid-column: 1 / -1;">
+                        <div class="numero">0</div>
+                        <div class="label">Nenhum agendamento ainda</div>
+                    </div>
+                `;
+            }
+
+            stats.innerHTML = statsHTML;
+
+            // ===== LISTA DE AGENDAMENTOS =====
+            if (agendamentos.length === 0) {
+                lista.innerHTML = `
+                    <div class="vazio-admin">
+                        <span class="vazio-icone">📭</span>
+                        <div class="vazio-texto">Nenhum agendamento ainda</div>
+                        <div class="vazio-sub">Os agendamentos aparecerão aqui</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Ordena por data (mais recente primeiro)
+            const agendamentosOrdenados = [...agendamentos].sort((a, b) => {
+                if (a.data !== b.data) return a.data.localeCompare(b.data);
+                return a.horario.localeCompare(b.horario);
+            });
+
+            lista.innerHTML = agendamentosOrdenados.map((a, index) => {
+                const dataFormatada = formatarData(a.data);
+                const telefoneFormatado = a.telefone ? formatarTelefone(a.telefone) : '';
+                const servicoIcone = {
+                    'Manicure': '💅',
+                    'Pedicure': '🦶',
+                    'Tratamento dos pés': '👣',
+                    'Brown Lamination': '✏️'
+                }[a.servico] || '✨';
+                // Escapa campos que vieram do usuário
+                const nomeEsc = escapeHtml(a.nome);
+                const servEsc = escapeHtml(a.servico);
+                const valorEsc = escapeHtml(a.valor);
+                const obsEsc = escapeHtml(a.observacao || '');
+                const dataAgEsc = escapeHtml(a.dataAgendamento || '');
+                const telefoneSafe = a.telefone ? a.telefone.replace(/\D/g, '') : '';
+
+                return `
+                    <div class="agendamento-item-admin">
+                        <div class="agendamento-info-admin">
+                            <div class="cliente-nome">
+                                ${nomeEsc}
+                                <span class="servico-tag">${servicoIcone} ${servEsc}</span>
+                                <span class="valor-tag">${valorEsc}</span>
+                            </div>
+                            <div class="detalhes-data">📅 ${dataFormatada} às ${escapeHtml(a.horario)}</div>
+                            ${obsEsc ? `<div class="observacao-texto">💬 "${obsEsc}"</div>` : ''}
+                            ${telefoneFormatado ? `
+                                <a href="https://wa.me/${telefoneSafe}" target="_blank" class="whatsapp-link-admin">
+                                    <i class="fab fa-whatsapp"></i> ${telefoneFormatado}
+                                </a>
+                            ` : ''}
+                            <div class="data-agendamento">Agendado em: ${dataAgEsc}</div>
+                        </div>
+                        <button class="btn-remover-admin" data-id="${a.id}" title="Remover agendamento">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // ===== EVENTOS DE REMOVER =====
+            document.querySelectorAll('.btn-remover-admin').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.dataset.id);
+                    if (confirm('💭 Tem certeza que deseja cancelar este agendamento?')) {
+                        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+                        const agendamentoRemovido = agendamentos.find(a => a.id === id);
+                        agendamentos = agendamentos.filter(a => a.id !== id);
+                        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+                        carregarAdmin();
+                        if (agendamentoRemovido) {
+                            alert(`✅ Agendamento de ${agendamentoRemovido.nome} foi removido.`);
+                        }
+                    }
+                });
+            });
+        }
+
+        // ========== FORMATAR DATA ==========
+        function formatarData(dataStr) {
+            if (!dataStr) return '';
+            const data = new Date(dataStr + 'T00:00:00');
+            const diasSemana = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+            const meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+            return `${diasSemana[data.getDay()]}, ${data.getDate()} de ${meses[data.getMonth()]}`;
+        }
+
+        // ========== FORMATAR TELEFONE ==========
+        function formatarTelefone(telefone) {
+            if (!telefone) return '';
+            const ddd = telefone.substring(0, 2);
+            const parte1 = telefone.substring(2, 7);
+            const parte2 = telefone.substring(7, 11);
+            return `(${ddd}) ${parte1}-${parte2}`;
+        }
+
+        // ========== EXPORTAR CSV ==========
+        function exportarAgendamentos() {
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            if (agendamentos.length === 0) {
+                alert('📭 Não há agendamentos para exportar.');
+                return;
+            }
+
+            let csv = '\uFEFF';
+            csv += 'Nome,Telefone,Data,Horario,Servico,Valor,Observacao,DataAgendamento\n';
+            agendamentos.forEach(a => {
+                const dataFormatada = formatarData(a.data);
+                const linha = [
+                    `"${a.nome}"`,
+                    `"${a.telefone || ''}"`,
+                    `"${dataFormatada}"`,
+                    `"${a.horario}"`,
+                    `"${a.servico}"`,
+                    `"${a.valor}"`,
+                    `"${a.observacao || ''}"`,
+                    `"${a.dataAgendamento}"`
+                ].join(',');
+                csv += linha + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `agendamentos_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        // ========== LIMPAR TODOS ==========
+        function limparTodosAgendamentos() {
+            const agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
+            if (agendamentos.length === 0) {
+                alert('📭 Não há agendamentos para remover.');
+                return;
+            }
+
+            if (confirm(`⚠️ Tem certeza que deseja REMOVER TODOS os ${agendamentos.length} agendamentos?\n\nEsta ação não pode ser desfeita!`)) {
+                if (confirm('💭 Última confirmação: Remover todos os agendamentos?')) {
+                    localStorage.removeItem('agendamentos');
+                    carregarAdmin();
+                    alert('✅ Todos os agendamentos foram removidos.');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
