@@ -50,52 +50,13 @@ document.addEventListener('DOMContentLoaded', function() {
             next: '›'
         },
         selectable: true,
+        dateClick: function(info) {
+            const dataStr = info.dateStr || info.date.toISOString().split('T')[0];
+            selecionarData(dataStr);
+        },
         select: function(info) {
             const dataStr = info.startStr;
-            const dataObj = new Date(info.startStr);
-            
-            // BLOQUEIA DATAS PASSADAS
-            if (dataObj < new Date(new Date().setHours(0,0,0,0))) {
-                alert('❌ Não é possível agendar em datas passadas.');
-                return;
-            }
-            
-            // BLOQUEIA DOMINGOS
-            if (dataObj.getDay() === 0) {
-                alert('❌ Não atendemos aos domingos. 🕊️\n\nAtendemos de segunda a sexta, das 19h às 21:30h, e aos sábados, das 8h às 17h.');
-                return;
-            }
-            
-            if (DIAS_BLOQUEADOS.includes(dataStr)) {
-                alert('❌ Esta data não está disponível.');
-                return;
-            }
-            
-            const hoje = new Date();
-            if (dataStr === hoje.toISOString().split('T')[0] && hoje.getHours() >= 21) {
-                alert('❌ Não é possível agendar para hoje após as 21h.');
-                return;
-            }
-            
-            dataSelecionada = dataStr;
-            const dataFormatada = formatarData(dataStr);
-            document.getElementById('dataSelecionada').textContent = dataFormatada;
-            document.getElementById('horariosDisponiveis').style.display = 'block';
-            
-            document.querySelectorAll('.fc-daygrid-day').forEach(el => {
-                el.classList.remove('fc-day-selected');
-            });
-            const diaSelecionado = document.querySelector(`[data-date="${dataStr}"]`);
-            if (diaSelecionado) {
-                diaSelecionado.classList.add('fc-day-selected');
-            }
-            
-            carregarHorarios(dataStr);
-            
-            setTimeout(() => {
-                const el = document.getElementById('horariosDisponiveis');
-                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+            selecionarData(dataStr);
         },
         selectAllow: function(info) {
             const dataObj = new Date(info.startStr);
@@ -147,6 +108,58 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calendar.render();
 });
+
+function selecionarData(dataStr) {
+    if (!dataStr) return;
+
+    const dataObj = new Date(dataStr + 'T00:00:00');
+
+    // BLOQUEIA DATAS PASSADAS
+    if (dataObj < new Date(new Date().setHours(0,0,0,0))) {
+        alert('❌ Não é possível agendar em datas passadas.');
+        return;
+    }
+
+    // BLOQUEIA DOMINGOS
+    if (dataObj.getDay() === 0) {
+        alert('❌ Não atendemos aos domingos. 🕊️\n\nAtendemos de segunda a sexta, das 19h às 21:30h, e aos sábados, das 8h às 17h.');
+        return;
+    }
+
+    if (DIAS_BLOQUEADOS.includes(dataStr)) {
+        alert('❌ Esta data não está disponível.');
+        return;
+    }
+
+    const hoje = new Date();
+    if (dataStr === hoje.toISOString().split('T')[0] && hoje.getHours() >= 21) {
+        alert('❌ Não é possível agendar para hoje após as 21h.');
+        return;
+    }
+
+    dataSelecionada = dataStr;
+    const dataFormatada = formatarData(dataStr);
+    const elData = document.getElementById('dataSelecionada');
+    const elHorarios = document.getElementById('horariosDisponiveis');
+
+    if (elData) elData.textContent = dataFormatada;
+    if (elHorarios) elHorarios.style.display = 'block';
+
+    document.querySelectorAll('.fc-daygrid-day').forEach(el => {
+        el.classList.remove('fc-day-selected');
+    });
+    const diaSelecionado = document.querySelector(`[data-date="${dataStr}"]`);
+    if (diaSelecionado) {
+        diaSelecionado.classList.add('fc-day-selected');
+    }
+
+    carregarHorarios(dataStr);
+
+    setTimeout(() => {
+        const el = document.getElementById('horariosDisponiveis');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+}
 
 // ========== FORMATAR DATA ==========
 function formatarData(dataStr) {
