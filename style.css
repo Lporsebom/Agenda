@@ -255,6 +255,9 @@ body {
 
 .fc .fc-daygrid-day {
     border: none !important;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .fc .fc-daygrid-day-number {
